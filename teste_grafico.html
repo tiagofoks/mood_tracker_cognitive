@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head></head>
+
+<body>
+  <canvas id="c" width="500" height="500"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+  
+  
+   $.get("https://bluehackcloudhort082017.mybluemix.net/analytics", function(result, status){
+		var dynamicColors = function() {
+			var r = Math.floor(Math.random() * 255);
+			var g = Math.floor(Math.random() * 255);
+			var b = Math.floor(Math.random() * 255);
+			return "rgb(" + r + "," + g + "," + b + ")";
+		}
+	  
+		var ctx = document.getElementById("c").getContext("2d");
+		var data = {
+		  labels: ["anger", "disgust", "fear", "joy", "sadness",],
+		  datasets: [{
+			label: "My First dataset",
+			fillColor: dynamicColors(),
+			pointColor: dynamicColors(),
+			data: [65, 59, 80, 81, 56]
+		  }]
+		};
+		var MyNewChart = new Chart(ctx).Bar(data);
+		for(var i = 0; i < MyNewChart.datasets[0].bars.length; i ++){
+			MyNewChart.datasets[0].bars[i].fillColor = dynamicColors()
+		}
+		MyNewChart.update();
+		
+		
+		console.log(new Date(result[0].payload.time).getHours());
+		
+		
+		
+		
+		
+	});
+	
+	
+
+  </script>
+</body>
+
+</html>
